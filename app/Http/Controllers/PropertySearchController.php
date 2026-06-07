@@ -57,7 +57,7 @@ class PropertySearchController extends Controller
             $query->where('area', '<=', $filters['area_to']);
         }
 
-        match ($filters['sort'] ?? 'defalut') {
+        match ($filters['sort'] ?? 'default') {
             'area_asc' => $query->orderBy('area'),
             'area_desc' => $query->orderByDesc('area'),
             'rooms_asc' => $query->orderBy('rooms'),
