@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Property;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class PropertySeeder extends Seeder
 {
@@ -23,22 +24,28 @@ class PropertySeeder extends Seeder
 
         $remainingCount = 10000 - count($imagePool);
 
-        Property::factory()
-            ->count($remainingCount)
-            ->create()
-            ->each(function (Property $property) use ($imagePool): void {
-                if (empty($imagePool) || ! fake()->boolean(75)) {
-                    return;
-                }
+        DB::transaction(function () use ($remainingCount, $imagePool): void {
+            Property::factory()
+                ->count($remainingCount)
+                ->state(function () use ($imagePool): array {
+                    if (empty($imagePool) || ! fake()->boolean(75)) {
+                        return [
+                            'has_photo' => false,
+                            'image_path' => null,
+                            'thumbnail_path' => null,
+                        ];
+                    }
 
-                $image = fake()->randomElement($imagePool);
+                    $image = fake()->randomElement($imagePool);
 
-                $property->forceFill([
-                    'has_photo' => true,
-                    'image_path' => $image['image_path'],
-                    'thumbnail_path' => $image['thumbnail_path'],
-                ])->save();
-            });
+                    return [
+                        'has_photo' => true,
+                        'image_path' => $image['image_path'],
+                        'thumbnail_path' => $image['thumbnail_path'],
+                    ];
+                })
+                ->create();
+        });
     }
 
     private function createImagePool($images): array
