@@ -20,18 +20,21 @@ mkdir -p database
 rm -f database/database.sqlite
 touch database/database.sqlite
 
+echo "Cleaning public storage..."
+rm -rf storage/app/public/*
+rm -rf public/storage
+
 echo "Clearing cached configuration..."
 php artisan config:clear
 
 echo "Generating application key..."
 php artisan key:generate
 
-echo "Creating storage link..."
-rm -rf public/storage
-php artisan storage:link
-
 echo "Running migrations and seeders..."
 php artisan migrate:fresh --seed
+
+echo "Creating storage link..."
+php artisan storage:link
 
 echo "Building frontend assets..."
 npm run build
