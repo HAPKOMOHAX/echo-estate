@@ -1,7 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import { usePropertiesSearch } from './Composables/usePropertiesSearch';
-import AppLayout from '@/Layouts/AppLayout.vue';
+import PublicLayout from '@/Layouts/PublicLayout.vue';
 import PropertyFilters from './Partials/PropertyFilters.vue';
 import PropertyResults from './Partials/PropertyResults.vue';
 
@@ -21,18 +21,8 @@ const {
 <template>
     <Head title="Поиск недвижимости" />
 
-    <AppLayout title="Поиск недвижимости">
-        <template #header>
-            <div>
-                <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Поиск недвижимости
-                </h2>
-
-                <p class="mt-1 text-sm text-gray-500">
-                    Фильтрация объектов без перезагрузки страницы
-                </p>
-            </div>
-        </template>
+    <PublicLayout title="Поиск недвижимости">
+        
 
         <main class="py-8">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 2xl:max-w-[1800px]">
@@ -54,7 +44,7 @@ const {
                 </div>
             </div>
         </main>
-    </AppLayout>
+    </PublicLayout>
 </template>
 
 <style scoped>
