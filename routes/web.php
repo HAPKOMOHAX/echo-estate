@@ -16,12 +16,3 @@ Route::get('/properties', function () {
 Route::get('/properties/search', [PropertySearchController::class, 'index'])
     ->name('properties.search');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return redirect()->route('properties.index');
-    })->name('dashboard');
-});
