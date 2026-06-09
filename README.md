@@ -48,7 +48,7 @@ php -m
 ## Быстрая установка через setup.sh
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/HAPKOMOHAX/echo-estate
 cd echo-estate
 
 chmod +x setup.sh
