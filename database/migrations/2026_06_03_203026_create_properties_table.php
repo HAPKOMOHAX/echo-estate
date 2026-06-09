@@ -23,11 +23,8 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->index('title');
-            $table->index('has_photo');
-            $table->index('rooms');
+            $table->index(['rooms', 'area']);
             $table->index('area');
-            $table->index(['has_photo', 'rooms', 'area']);
         });
     }
 
